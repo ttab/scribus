@@ -1,0 +1,43 @@
+name: Build
+
+on:
+  push:
+    tags:
+      # Scribus uses tags in the format Release_N_N... It's a SVN thing, but
+      # let's follow the same pattern for now.
+      - tt_*
+
+jobs:
+  build:
+    name: Create Docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Revert GooString fixes
+        run: git revert --no-edit 9bed4d60e41cdca2215cbf48c45d063bdc96394f
+
+      - name: Log in to docker repository
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create build context
+        run: docker context create builders
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+        with:
+          endpoint: builders
+
+      - name: Build and push release image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository }}:${{ github.ref_name }}
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
