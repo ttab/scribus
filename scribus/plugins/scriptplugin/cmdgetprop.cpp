@@ -327,6 +327,25 @@ PyObject *scribus_getrotation(PyObject* /* self */, PyObject* args)
 	return PyFloat_FromDouble(item->rotation() * -1.0);
 }
 
+PyObject *scribus_getboundingbox(PyObject* /* self */, PyObject* args)
+{
+    PyESString name;
+    if (!PyArg_ParseTuple(args, "|es", "utf-8", name.ptr()))
+        return nullptr;
+    if (!checkHaveDocument())
+        return nullptr;
+    PageItem *item = GetUniqueItem(QString::fromUtf8(name.c_str()));
+    if (item == nullptr)
+        return nullptr;
+
+    return Py_BuildValue("(dddd)",
+                         docUnitXToPageX(item->BoundingX),
+                         docUnitYToPageY(item->BoundingY),
+                         PointToValue(item->BoundingW),
+                         PointToValue(item->BoundingH)
+                         );
+}
+
 PyObject *scribus_getallobjects(PyObject* /* self */, PyObject* args, PyObject *keywds)
 {
 	int itemType = -1;

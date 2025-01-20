@@ -252,6 +252,18 @@ is used.\n\
 PyObject *scribus_getrotation(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
+PyDoc_STRVAR(scribus_getboundingbox__doc__,
+QT_TR_NOOP("getBoundingBox([\"name\"]) -> (x, y, width, height)\n\
+\n\
+Returns a (x, y, width, height) tuple with the position and size of the object \"name\".\n\
+If \"name\" is not given the currently selected item is used. The size is\n\
+expressed in the current measurement unit of the document - see UNIT_<type>\n\
+for reference.\n\
+"));
+/*! Returns size of the object */
+PyObject *scribus_getboundingbox(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
 PyDoc_STRVAR(scribus_getallobjects__doc__,
 QT_TR_NOOP("getAllObjects([type, page, \"layer\"]) -> list\n\
 \n\
