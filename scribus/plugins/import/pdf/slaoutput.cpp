@@ -125,7 +125,7 @@ LinkImportData::LinkImportData(Object *actionObj)
 
 	Object obj3 = getFileSpecNameForPlatform(&obj1);
 	if (!obj3.isNull())
-		fileName = obj3.getString()->copy();
+		fileName = obj3.getString()->copy().release();
 }
 
 LinkImportData::~LinkImportData()
@@ -178,7 +178,7 @@ void AnoOutputDev::drawString(GfxState *state, const GooString *s)
 	if (state->getFont())
 		fontName = state->getFont()->getName()->copy();
 #endif
-	itemText = s->copy();
+	itemText = s->copy().release();
 }
 
 QString AnoOutputDev::getColor(GfxColorSpace *color_space, const GfxColor *color, int *shade)
