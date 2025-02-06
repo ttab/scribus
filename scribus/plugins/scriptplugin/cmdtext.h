@@ -201,7 +201,7 @@ PyObject *scribus_gettracking(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getwordtracking__doc__,
-QT_TR_NOOP("getWordTracking([\"name\"]) -> integer\n\
+QT_TR_NOOP("getWordTracking([\"name\"]) -> float\n\
 \n\
 Gets the word tracking of text inside text frame \"name\".\n\
 If \"name\" is not given the currently selected item is used. \n\
@@ -209,6 +209,18 @@ If there is some text selected only the selected text tracking is returned.\n\
 "));
 /*! Get word tracking */
 PyObject *scribus_getwordtracking(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_getminwordtracking__doc__,
+QT_TR_NOOP("getMinWordTracking([\"name\"]) -> float\n\
+\n\
+Gets the word tracking of text inside text frame \"name\".\n\
+If \"name\" is not given the currently selected item is used. \n\
+If there is some text selected only the selected text tracking is returned.\n\
+"));
+/*! Get minimum word tracking */
+PyObject *scribus_getminwordtracking(PyObject * /*self*/, PyObject* args);
+
 
 /*! docstring */
 PyDoc_STRVAR(scribus_getlinespacing__doc__,
@@ -634,11 +646,23 @@ QT_TR_NOOP("setWordTracking(kern, [\"name\"])\n\
 \n\
 Sets the word tracking of the text the object \"name\" to \"kern\". If\n\
 there is some text selected only the selected text is changed. \"kern\" must\n\
-be an integer. If \"name\" is not given the currently selected item is\n\
+be an number. If \"name\" is not given the currently selected item is\n\
 used.\n\
 "));
 /*! Set text word tracking */
 PyObject *scribus_setwordtracking(PyObject * /*self*/, PyObject* args);
+
+/*! docstring */
+PyDoc_STRVAR(scribus_setminwordtracking__doc__,
+QT_TR_NOOP("setMinWordTracking(kern, [\"name\"])\n\
+\n\
+Sets the minimum word tracking of the text the object \"name\" to \"kern\".\n\
+If there is some text selected only the selected text is changed. \"kern\"\n\
+must be an number. If \"name\" is not given the currently selected item is\n\
+used.\n\
+"));
+/*! Set text minimum word tracking */
+PyObject *scribus_setminwordtracking(PyObject * /*self*/, PyObject* args);
 
 /*! docstring */
 PyDoc_STRVAR(scribus_linktextframes__doc__,
